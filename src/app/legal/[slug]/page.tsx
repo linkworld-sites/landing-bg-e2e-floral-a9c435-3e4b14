@@ -48,18 +48,18 @@ export default async function LegalPage({ params }: Props) {
   const html = await marked(page.content);
 
   return (
-    <div className="min-h-screen bg-bg pt-16">
+    <div className="min-h-screen bg-linen pt-16">
       <div className="max-w-2xl mx-auto px-6">
-        <div className="pt-20 pb-10 border-b border-border mb-10">
+        <div className="pt-24 pb-10 border-b border-ochre/20 mb-10">
           <Link
             href="/"
-            className="text-xs font-medium tracking-widest uppercase text-accent mb-6 inline-flex items-center gap-1 hover:text-accent-dark transition-colors"
+            className="font-body text-[10px] tracking-micro uppercase text-umber mb-6 inline-flex items-center gap-1 hover:text-bark transition-colors"
           >
             ← Home
           </Link>
           <h1
-            className="font-serif text-fg leading-tight mt-6"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}
+            className="font-display italic text-bark leading-tight mt-6"
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', letterSpacing: '-0.02em' }}
           >
             {page.title}
           </h1>

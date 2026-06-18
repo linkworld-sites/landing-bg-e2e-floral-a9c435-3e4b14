@@ -118,7 +118,7 @@ export default function CollectionGrid() {
             <EmptyState />
           ) : (
             products.slice(0, 5).map((p, i) => (
-              <ProductCard key={p.product_id} product={p} index={i} />
+              <ProductCard key={p.id} product={p} index={i} />
             ))
           )}
         </div>

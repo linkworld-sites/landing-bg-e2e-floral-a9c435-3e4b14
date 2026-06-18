@@ -1,58 +1,81 @@
 import Link from 'next/link';
 
+const NAV_COL1 = [
+  { label: 'Shop', href: '/shop' },
+  { label: 'Collections', href: '/#collection' },
+  { label: 'Workshop', href: '/#workshop' },
+  { label: 'Journal', href: '/blog' },
+];
+
+const NAV_COL2 = [
+  { label: 'Impressum', href: '/legal/impressum' },
+  { label: 'Datenschutz', href: '/legal/datenschutz' },
+  { label: 'Cookies', href: '/legal/cookies' },
+];
+
 export default function Footer() {
   return (
-    <footer className="bg-fg text-white/70 pt-16 pb-8">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          <div className="md:col-span-2">
-            <div className="font-serif text-xl text-white mb-4">
-              Still<span className="text-accent">bloom</span>
-            </div>
-            <p className="text-sm leading-relaxed max-w-xs text-white/55">
-              Dried floral arrangements for homes, weddings, and gift-giving — crafted with care, designed to last.
-            </p>
-          </div>
+    <footer className="bg-bark pt-16 pb-8">
+      {/* Centred wordmark */}
+      <div className="text-center mb-12 px-6">
+        <Link
+          href="/"
+          className="font-display italic text-linen text-3xl hover:text-ochre transition-colors"
+          style={{ letterSpacing: '-0.02em' }}
+        >
+          Stillbloom
+        </Link>
+        <div className="w-10 h-px bg-ochre/30 mx-auto mt-5" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          {/* Navigation column 1 */}
           <div>
-            <h5 className="font-serif text-white text-base mb-4 font-normal">Entdecken</h5>
-            <ul className="space-y-2.5">
-              {[['Shop', '/shop'], ['Journal', '/blog'], ['Unsere Geschichte', '/#story'], ['Nachhaltigkeit', '/#story']].map(
-                ([label, href]) => (
-                  <li key={label}>
-                    <Link href={href} className="text-sm text-white/55 hover:text-accent transition-colors">
-                      {label}
-                    </Link>
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
-          <div>
-            <h5 className="font-serif text-white text-base mb-4 font-normal">Rechtliches</h5>
-            <ul className="space-y-2.5">
-              {[
-                ['Impressum', '/legal/impressum'],
-                ['Datenschutz', '/legal/datenschutz'],
-                ['Cookies', '/legal/cookies'],
-              ].map(([label, href]) => (
+            <p className="font-body text-[10px] tracking-micro uppercase text-linen/30 mb-4">Navigate</p>
+            <ul className="space-y-3">
+              {NAV_COL1.map(({ label, href }) => (
                 <li key={label}>
-                  <Link href={href} className="text-sm text-white/55 hover:text-accent transition-colors">
+                  <Link href={href} className="font-body text-sm text-linen/55 hover:text-linen transition-colors">
                     {label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-        </div>
-        <div className="border-t border-white/10 pt-6 flex flex-wrap justify-between items-center gap-4">
-          <p className="text-xs text-white/35">© 2026 Stillbloom. Alle Rechte vorbehalten.</p>
-          <div className="flex gap-4">
-            {['Instagram', 'Pinterest'].map((s) => (
-              <span key={s} className="text-xs text-white/35 hover:text-accent cursor-pointer transition-colors">
-                {s}
-              </span>
-            ))}
+
+          {/* Navigation column 2 — legal */}
+          <div>
+            <p className="font-body text-[10px] tracking-micro uppercase text-linen/30 mb-4">Rechtliches</p>
+            <ul className="space-y-3">
+              {NAV_COL2.map(({ label, href }) => (
+                <li key={label}>
+                  <Link href={href} className="font-body text-sm text-linen/55 hover:text-linen transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          {/* Instagram footnote grid — two columns wide */}
+          <div className="col-span-2 flex flex-col items-start md:items-end">
+            <p className="font-body text-[10px] tracking-micro uppercase text-linen/30 mb-3">Instagram</p>
+            <div className="grid grid-cols-6 gap-1">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="w-12 h-12 bg-umber/25 border border-ochre/10" aria-hidden="true" />
+              ))}
+            </div>
+            <p className="font-body text-[10px] tracking-micro uppercase text-linen/20 mt-2">
+              @stillbloom.studio
+            </p>
+          </div>
+        </div>
+
+        <div className="border-t border-linen/10 pt-6">
+          <p className="font-body text-[10px] tracking-micro uppercase text-linen/25 text-center">
+            © 2026 Stillbloom — Alle Rechte vorbehalten
+          </p>
         </div>
       </div>
     </footer>

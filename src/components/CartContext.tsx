@@ -26,10 +26,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addItem = useCallback((product: Product, quantity = 1) => {
     setItems((prev) => {
-      const existing = prev.find((i) => i.product_id === product.product_id)
+      const existing = prev.find((i) => i.product_id === product.id)
       if (existing) {
         return prev.map((i) =>
-          i.product_id === product.product_id
+          i.product_id === product.id
             ? { ...i, quantity: i.quantity + quantity }
             : i
         )
@@ -37,7 +37,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return [
         ...prev,
         {
-          product_id: product.product_id,
+          product_id: product.id,
           quantity,
           name: product.name,
           price_cents: product.price_cents,

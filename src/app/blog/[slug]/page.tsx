@@ -30,26 +30,26 @@ export default async function BlogPostPage({ params }: Props) {
   const html = await marked(post.content);
 
   return (
-    <div className="min-h-screen bg-bg pt-16">
+    <div className="min-h-screen bg-linen pt-16">
       <div className="max-w-2xl mx-auto px-6">
-        <div className="pt-20 pb-12 border-b border-border mb-12">
+        <div className="pt-24 pb-12 border-b border-ochre/20 mb-12">
           <Link
             href="/blog"
-            className="text-xs font-medium tracking-widest uppercase text-accent mb-6 inline-flex items-center gap-1 hover:text-accent-dark transition-colors"
+            className="font-body text-[10px] tracking-micro uppercase text-umber mb-6 inline-flex items-center gap-1 hover:text-bark transition-colors"
           >
             ← Journal
           </Link>
-          <p className="text-xs font-medium tracking-widest uppercase text-accent mt-6 mb-4">
+          <p className="font-body text-[10px] tracking-micro uppercase text-umber mt-6 mb-4">
             {post.date}
           </p>
           <h1
-            className="font-serif text-fg leading-tight mb-4"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}
+            className="font-display italic text-bark leading-tight mb-4"
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', letterSpacing: '-0.02em' }}
           >
             {post.title}
           </h1>
           {post.description && (
-            <p className="text-fg-muted text-base leading-relaxed">
+            <p className="font-body text-umber text-base leading-relaxed">
               {post.description}
             </p>
           )}
