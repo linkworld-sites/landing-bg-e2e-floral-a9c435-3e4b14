@@ -1,8 +1,9 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
 import { formatPrice, checkout, type Product, type CartItem } from '@/lib/checkout';
+import { track } from '@/lib/funnel';
 
 function ProductSvg() {
   return (
@@ -202,9 +203,14 @@ export default function ShopClient({ products }: { products: Product[] }) {
   const [cartOpen, setCartOpen] = useState(false);
   const [checkingOut, setCheckingOut] = useState(false);
 
+  useEffect(() => {
+    track('product_view');
+  }, []);
+
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const addToCart = (product: Product) => {
+    track('add_to_cart');
     setCart((prev) => {
       const existing = prev.find((i) => i.product_id === product.product_id);
       if (existing) {
