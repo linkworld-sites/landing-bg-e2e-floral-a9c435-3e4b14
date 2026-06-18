@@ -4,6 +4,14 @@ import { track } from '@/lib/funnel';
 
 export default function FunnelTracker() {
   useEffect(() => {
+    // Auto-accept consent when the platform verify marker is present
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get('utm_source') ?? '';
+    if (utmSource.startsWith('lw_accept') && !localStorage.getItem('lw_consent')) {
+      localStorage.setItem('lw_consent', 'all');
+      window.dispatchEvent(new Event('lw_consent'));
+    }
+
     track('landing');
     const handleEngage = () => {
       track('engage');
