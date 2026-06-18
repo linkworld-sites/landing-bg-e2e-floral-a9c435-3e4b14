@@ -85,18 +85,18 @@ function ProductCard({
         <p className="font-body text-umber/80 text-sm leading-relaxed mb-5 flex-1 line-clamp-3">
           {product.description}
         </p>
-        <motion.button
-          onClick={handleAdd}
-          whileHover={{ backgroundColor: added ? undefined : '#3D2E26' }}
-          whileTap={{ scale: 0.97 }}
-          className={`w-full py-3 text-sm font-body transition-colors duration-300 border ${
-            added
-              ? 'bg-bark text-linen border-bark'
-              : 'bg-transparent text-bark border-bark/40 hover:text-linen'
-          }`}
-        >
-          {added ? '✓ Added' : 'Add to Cart'}
-        </motion.button>
+        <motion.div whileTap={{ scale: 0.97 }}>
+          <button
+            onClick={handleAdd}
+            className={`w-full py-3 text-sm font-body transition-all duration-300 border ${
+              added
+                ? 'bg-bark text-linen border-bark'
+                : 'bg-transparent text-bark border-bark/40 hover:bg-bark hover:text-linen'
+            }`}
+          >
+            {added ? '✓ Added' : 'Add to Cart'}
+          </button>
+        </motion.div>
       </div>
     </motion.article>
   );
@@ -197,14 +197,14 @@ function CartSidebar({
               <span className="font-display italic text-bark text-xl">{formatPrice(total, 'EUR')}</span>
             </div>
             <p className="font-body text-xs text-umber/60 mb-4">Free EU shipping · 2–4 business days</p>
-            <motion.button
-              onClick={onCheckout}
-              whileHover={{ backgroundColor: '#C4A882' }}
-              whileTap={{ scale: 0.97 }}
-              className="w-full bg-bark text-linen py-3.5 font-body text-sm tracking-wide transition-colors duration-300"
-            >
-              Proceed to Checkout
-            </motion.button>
+            <motion.div whileTap={{ scale: 0.97 }}>
+              <button
+                onClick={onCheckout}
+                className="w-full bg-bark text-linen py-3.5 font-body text-sm tracking-wide hover:bg-ochre transition-colors duration-300"
+              >
+                Proceed to Checkout
+              </button>
+            </motion.div>
           </div>
         )}
       </motion.div>
@@ -308,16 +308,14 @@ export default function ShopClient({ products }: { products: Product[] }) {
 
         {cartCount > 0 && !cartOpen && (
           <motion.div initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30">
-            <motion.button
+            <button
               onClick={() => setCartOpen(true)}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-3 bg-bark text-linen pl-5 pr-6 py-3.5 font-body text-sm shadow-xl"
+              className="flex items-center gap-3 bg-bark text-linen pl-5 pr-6 py-3.5 font-body text-sm shadow-xl hover:bg-umber transition-colors"
             >
               <span className="flex items-center justify-center w-6 h-6 bg-ochre text-bark text-xs font-bold rounded-full">{cartCount}</span>
               View Cart
               {checkingOut && <span className="text-linen/60 text-xs">Processing…</span>}
-            </motion.button>
+            </button>
           </motion.div>
         )}
       </div>
