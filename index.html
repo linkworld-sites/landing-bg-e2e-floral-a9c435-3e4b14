@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><style id='brand'>:root{
+  --bg:#0b0b0c; --surface:#141417; --surface-2:#1c1c21;
+  --fg:#f5f5f7; --fg-muted:#a1a1aa; --border:#26262b;
+  --accent:#3b82f6; --accent-fg:#fff; --radius:14px; --maxw:1100px;
+  --font:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--fg);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.section{padding:96px 0}
+.hero{padding:140px 0 90px;text-align:center}
+h1{font-size:clamp(2.5rem,6vw,4.5rem);line-height:1.05;letter-spacing:-.02em}
+h2{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.01em}
+.muted{color:var(--fg-muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-fg);padding:14px 28px;border-radius:var(--radius);font-weight:600;text-decoration:none;border:0;cursor:pointer;transition:transform .15s ease,opacity .15s ease}
+.btn:hover{transform:translateY(-2px);opacity:.92}
+.btn-ghost{background:transparent;color:var(--fg);border:1px solid var(--border)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
+.grid{display:grid;gap:24px}
+@media(max-width:640px){.section{padding:64px 0}.hero{padding:96px 0 64px}}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stillbloom — Dried Flowers That Last Forever</title>
+<style>
+  /* ── Brand overrides & custom properties ── */
+  :root {
+    --bg: #faf7f2;
+    --surface: #f2ece2;
+    --fg: #2c2118;
+    --fg-muted: #7a6a58;
+    --accent: #b5704a;
+    --accent-soft: #e8d5c4;
+    --accent-dark: #8b4f2e;
+    --border: #ddd0c0;
+    --radius: 14px;
+    --serif: 'Georgia', 'Times New Roman', serif;
+    --sans: system-ui, -apple-system, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── Typography ── */
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; }
+  h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: -0.02em; }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+  h3 { font-size: 1.25rem; }
+  p { color: var(--fg-muted); }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Layout helpers ── */
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .section { padding: 96px 0; }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 40px;
+    padding: 14px 32px; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+    letter-spacing: 0.02em;
+  }
+  .btn:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(181,112,74,0.30); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--accent);
+    border: 1.5px solid var(--accent); border-radius: 40px;
+    padding: 13px 30px; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: background 0.25s, transform 0.2s;
+  }
+  .btn-ghost:hover { background: var(--accent-soft); transform: translateY(-2px); }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    padding: 18px 0;
+    transition: background 0.35s, box-shadow 0.35s;
+  }
+  nav.scrolled {
+    background: rgba(250,247,242,0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(44,33,24,0.08);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: var(--serif); font-size: 1.5rem; color: var(--fg);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { font-size: 0.9rem; color: var(--fg-muted); font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding-top: 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 70% 40%, rgba(181,112,74,0.12) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(181,112,74,0.07) 0%, transparent 60%);
+  }
+  /* Decorative botanical blobs */
+  .petal-blob {
+    position: absolute; border-radius: 50%;
+    background: var(--accent-soft); opacity: 0.35;
+    animation: drift 8s ease-in-out infinite alternate;
+  }
+  .petal-blob:nth-child(1) { width: 340px; height: 340px; top: 10%; right: 8%; animation-delay: 0s; }
+  .petal-blob:nth-child(2) { width: 180px; height: 180px; top: 55%; right: 22%; animation-delay: 2s; }
+  .petal-blob:nth-child(3) { width: 120px; height: 120px; top: 20%; right: 32%; animation-delay: 4s; opacity: 0.2; }
+
+  @keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(12px, -16px) scale(1.04); }
+  }
+
+  /* Floating botanical SVG accents */
+  .floret {
+    position: absolute; opacity: 0.18;
+    animation: sway 6s ease-in-out infinite alternate;
+  }
+  .floret:nth-child(4) { top: 15%; right: 12%; font-size: 80px; animation-delay: 1s; }
+  .floret:nth-child(5) { top: 65%; right: 5%; font-size: 56px; animation-delay: 3s; }
+  .floret:nth-child(6) { top: 40%; right: 40%; font-size: 40px; animation-delay: 0.5s; opacity: 0.10; }
+  @keyframes sway {
+    0% { transform: rotate(-5deg) translateY(0); }
+    100% { transform: rotate(5deg) translateY(-10px); }
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 620px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-soft); color: var(--accent-dark);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .hero-eyebrow::before { content: '✦'; font-size: 0.65rem; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--fg-muted);
+    margin: 20px 0 36px; max-width: 500px; line-height: 1.7;
+  }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .hero-trust {
+    margin-top: 56px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; color: var(--fg-muted); font-weight: 500;
+  }
+  .trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* ── Marquee strip ── */
+  .marquee-strip {
+    background: var(--fg); color: #fff;
+    padding: 14px 0; overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex; gap: 48px;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-track span {
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; opacity: 0.75;
+  }
+  .marquee-track span.accent-dot { color: var(--accent); opacity: 1; font-size: 1rem; }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── Story section ── */
+  .story-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+  }
+  .story-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  }
+  .story-card {
+    background: var(--surface); border-radius: var(--radius);
+    aspect-ratio: 3/4; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px;
+    padding: 24px; text-align: center;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .story-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(44,33,24,0.1); }
+  .story-card:nth-child(2) { margin-top: 28px; }
+  .story-card:nth-child(4) { margin-top: 28px; }
+  .story-card-icon { font-size: 3rem; }
+  .story-card h4 { font-family: var(--serif); font-size: 1rem; color: var(--fg); }
+  .story-card p { font-size: 0.78rem; color: var(--fg-muted); }
+  .story-card-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--accent); color: #fff;
+    border-radius: 20px; padding: 2px 10px; font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .story-text { display: flex; flex-direction: column; gap: 20px; }
+  .story-text .eyebrow {
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .story-text h2 { margin-bottom: 8px; }
+  .story-stat {
+    display: flex; gap: 32px; padding: 24px;
+    background: var(--surface); border-radius: var(--radius);
+    border: 1px solid var(--border); margin-top: 8px;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: var(--serif); font-size: 2rem; color: var(--accent); display: block; }
+  .stat-label { font-size: 0.78rem; color: var(--fg-muted); }
+
+  /* ── Features ── */
+  .features-header { text-align: center; margin-bottom: 56px; }
+  .features-header .eyebrow {
+    display: inline-block; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .features-header p { max-width: 500px; margin: 12px auto 0; }
+
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .feature-card {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 36px 28px; border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--accent-soft) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(44,33,24,0.1); border-color: var(--accent-soft); }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-icon {
+    font-size: 2.2rem; margin-bottom: 20px; display: block;
+    position: relative; z-index: 1;
+  }
+  .feature-card h3 { margin-bottom: 10px; position: relative; z-index: 1; }
+  .feature-card p { font-size: 0.9rem; position: relative; z-index: 1; }
+
+  /* ── Collections ── */
+  .collections { background: var(--fg); padding: 96px 0; }
+  .collections h2 { color: #fff; text-align: center; margin-bottom: 12px; }
+  .collections > .container > p { text-align: center; color: rgba(255,255,255,0.55); margin-bottom: 52px; }
+  .collections-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  }
+  .collection-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius); padding: 32px 20px;
+    text-align: center; transition: background 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .collection-item:hover { background: rgba(181,112,74,0.2); transform: translateY(-4px); }
+  .collection-item .ci-icon { font-size: 3rem; margin-bottom: 16px; display: block; }
+  .collection-item h4 { color: #fff; font-family: var(--serif); font-size: 1.05rem; margin-bottom: 6px; }
+  .collection-item p { font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+  .collection-item .ci-tag {
+    display: inline-block; margin-top: 14px;
+    background: var(--accent); color: #fff; border-radius: 20px;
+    padding: 4px 14px; font-size: 0.72rem; font-weight: 600;
+  }
+
+  /* ── Process ── */
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    position: relative; margin-top: 56px;
+  }
+  .process-steps::before {
+    content: ''; position: absolute;
+    top: 32px; left: calc(12.5% + 20px); right: calc(12.5% + 20px);
+    height: 1px; background: var(--border); z-index: 0;
+  }
+  .step { text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+  .step-num {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; font-family: var(--serif);
+    font-size: 1.2rem; color: var(--fg); transition: border-color 0.3s, background 0.3s;
+  }
+  .step:hover .step-num { border-color: var(--accent); background: var(--accent-soft); }
+  .step h4 { font-family: var(--serif); font-size: 1rem; margin-bottom: 8px; }
+  .step p { font-size: 0.82rem; }
+
+  /* ── Pricing ── */
+  .pricing-header { text-align: center; margin-bottom: 56px; }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start;
+  }
+  .pricing-card {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 40px 32px; border: 1px solid var(--border);
+    position: relative; transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .pricing-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(44,33,24,0.1); }
+  .pricing-card.featured {
+    background: var(--fg); border-color: var(--fg);
+    transform: scale(1.04);
+  }
+  .pricing-card.featured:hover { transform: scale(1.04) translateY(-6px); }
+  .pricing-card.featured h3,
+  .pricing-card.featured .price,
+  .pricing-card.featured .price-period,
+  .pricing-card.featured ul li { color: #fff; }
+  .pricing-card.featured p { color: rgba(255,255,255,0.55); }
+  .pricing-card.featured ul li::before { color: var(--accent) !important; }
+  .featured-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff;
+    border-radius: 20px; padding: 4px 20px; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+  }
+  .plan-icon { font-size: 1.8rem; margin-bottom: 20px; display: block; }
+  .pricing-card h3 { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 6px; }
+  .pricing-card > p { font-size: 0.85rem; margin-bottom: 28px; }
+  .price { font-family: var(--serif); font-size: 2.8rem; color: var(--fg); line-height: 1; }
+  .price-period { font-size: 0.85rem; color: var(--fg-muted); }
+  .price-wrap { margin-bottom: 28px; }
+  .pricing-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+  .pricing-card ul li { font-size: 0.88rem; color: var(--fg-muted); display: flex; gap: 10px; align-items: flex-start; }
+  .pricing-card ul li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .pricing-note { text-align: center; margin-top: 24px; font-size: 0.82rem; color: var(--fg-muted); }
+
+  /* ── Testimonials ── */
+  .testimonials-bg { background: var(--surface); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .testimonial-card {
+    background: var(--bg); border-radius: var(--radius);
+    padding: 32px; border: 1px solid var(--border);
+    transition: transform 0.3s;
+  }
+  .testimonial-card:hover { transform: translateY(-4px); }
+  .stars { color: var(--accent); font-size: 1rem; margin-bottom: 16px; letter-spacing: 2px; }
+  .testimonial-card blockquote {
+    font-family: var(--serif); font-size: 1rem; color: var(--fg);
+    line-height: 1.65; font-style: italic; margin-bottom: 20px;
+  }
+  .reviewer { display: flex; align-items: center; gap: 12px; }
+  .reviewer-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--accent-soft); display: flex; align-items: center;
+    justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+  }
+  .reviewer-name { font-size: 0.88rem; font-weight: 600; color: var(--fg); }
+  .reviewer-meta { font-size: 0.78rem; color: var(--fg-muted); }
+
+  /* ── CTA Banner ── */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    padding: 80px 0; text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '🌸'; position: absolute; top: -20px; left: 5%; font-size: 120px;
+    opacity: 0.08; transform: rotate(-20deg);
+  }
+  .cta-banner::after {
+    content: '🌿'; position: absolute; bottom: -20px; right: 5%; font-size: 120px;
+    opacity: 0.08; transform: rotate(20deg);
+  }
+  .cta-banner h2 { color: #fff; margin-bottom: 14px; }
+  .cta-banner p { color: rgba(255,255,255,0.75); margin-bottom: 36px; font-size: 1.05rem; }
+  .cta-banner .btn {
+    background: #fff; color: var(--accent);
+    box-shadow: 0 8px 32px rgba(44,33,24,0.25);
+  }
+  .cta-banner .btn:hover { background: var(--accent-soft); color: var(--accent-dark); }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    padding: 64px 0 32px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px;
+  }
+  .footer-brand .nav-logo { color: #fff; margin-bottom: 16px; }
+  .footer-brand p { font-size: 0.88rem; line-height: 1.7; max-width: 280px; }
+  .footer-col h5 {
+    font-family: var(--serif); color: #fff; font-size: 0.95rem;
+    margin-bottom: 16px; font-weight: 400;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a { font-size: 0.85rem; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--accent); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 28px; display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p { font-size: 0.82rem; color: rgba(255,255,255,0.35); }
+  .footer-socials { display: flex; gap: 16px; }
+  .footer-socials a {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.08); display: flex;
+    align-items: center; justify-content: center; font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .footer-socials a:hover { background: var(--accent); }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .story-grid, .features-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    .story-visual { display: none; }
+    .collections-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .process-steps::before { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-card.featured { transform: scale(1); }
+    .pricing-card.featured:hover { transform: translateY(-6px); }
+    .nav-links .btn { display: none; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { gap: 16px; }
+    .collections-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-trust { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .story-stat { flex-direction: column; gap: 16px; }
+    .process-steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="mainNav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">Still<span>bloom</span></a>
+    <div class="nav-links">
+      <a href="#collections">Collections</a>
+      <a href="#process">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#shop" class="btn" style="padding:10px 24px;font-size:0.85rem;">Shop Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="petal-blob"></div>
+  <div class="petal-blob"></div>
+  <div class="petal-blob"></div>
+  <div class="floret">🌾</div>
+  <div class="floret">🌸</div>
+  <div class="floret">🌿</div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Everlasting Beauty</div>
+      <h1>Flowers that bloom <em>forever</em>, never fade away</h1>
+      <p class="hero-sub">Stillbloom crafts premium dried flower arrangements that hold their beauty for years — not days. Sustainably sourced, artfully designed, endlessly yours.</p>
+      <div class="hero-cta">
+        <a href="#shop" class="btn">Shop Collections ↗</a>
+        <a href="#story" class="btn-ghost">Our Story</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><div class="trust-dot"></div>Lasts 2–5 years</div>
+        <div class="trust-item"><div class="trust-dot"></div>Sustainably harvested</div>
+        <div class="trust-item"><div class="trust-dot"></div>Hand-crafted in Europe</div>
+        <div class="trust-item"><div class="trust-dot"></div>Free returns</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Marquee ── -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Dried Pampas</span><span class="accent-dot">✦</span>
+    <span>Preserved Roses</span><span class="accent-dot">✦</span>
+    <span>Bridal Bouquets</span><span class="accent-dot">✦</span>
+    <span>Home Décor</span><span class="accent-dot">✦</span>
+    <span>Wedding Flowers</span><span class="accent-dot">✦</span>
+    <span>Gift Arrangements</span><span class="accent-dot">✦</span>
+    <span>Dried Botanicals</span><span class="accent-dot">✦</span>
+    <span>Everlasting Wreaths</span><span class="accent-dot">✦</span>
+    <span>Dried Pampas</span><span class="accent-dot">✦</span>
+    <span>Preserved Roses</span><span class="accent-dot">✦</span>
+    <span>Bridal Bouquets</span><span class="accent-dot">✦</span>
+    <span>Home Décor</span><span class="accent-dot">✦</span>
+    <span>Wedding Flowers</span><span class="accent-dot">✦</span>
+    <span>Gift Arrangements</span><span class="accent-dot">✦</span>
+    <span>Dried Botanicals</span><span class="accent-dot">✦</span>
+    <span>Everlasting Wreaths</span><span class="accent-dot">✦</span>
+  </div>
+</div>
+
+<!-- ── Story / About ── -->
+<section class="section" id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-visual">
+        <div class="story-card">
+          <span class="story-card-badge">New</span>
+          <div class="story-card-icon">🌸</div>
+          <h4>Blush Pampas</h4>
+          <p>Soft, romantic tones</p>
+        </div>
+        <div class="story-card">
+          <div class="story-card-icon">🌾</div>
+          <h4>Golden Wheat</h4>
+          <p>Rustic warmth</p>
+        </div>
+        <div class="story-card">
+          <span class="story-card-badge">Best</span>
+          <div class="story-card-icon">🌿</div>
+          <h4>Wild Eucalyptus</h4>
+          <p>Fresh & earthy</p>
+        </div>
+        <div class="story-card">
+          <div class="story-card-icon">💐</div>
+          <h4>Dried Roses</h4>
+          <p>Timeless elegance</p>
+        </div>
+      </div>
+      <div class="story-text">
+        <span class="eyebrow">Our Philosophy</span>
+        <h2>Beauty that doesn't ask you to let go</h2>
+        <p>We started Stillbloom with a simple question: why should something so beautiful last only a week? Dried flowers have been treasured across cultures for centuries — and today, they're living a renaissance.</p>
+        <p>Every Stillbloom arrangement is hand-harvested at peak bloom, slow-dried to preserve colour and texture, then composed by our artisan florists. No chemicals, no shortcuts — just nature, preserved.</p>
+        <div class="story-stat">
+          <div class="stat">
+            <span class="stat-num">2–5yr</span>
+            <span class="stat-label">Average lifespan</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Natural botanicals</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">30+</span>
+            <span class="stat-label">Curated varieties</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ── -->
+<section class="section" id="features" style="background: var(--surface); padding: 96px 0;">
+  <div class="container">
+    <div class="features-header">
+      <span class="eyebrow">Why Stillbloom</span>
+      <h2>The still-life upgrade your space deserves</h2>
+      <p>Thoughtful beauty, sustainable choices, and zero maintenance — dried flowers that give more than they take.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">♻️</span>
+        <h3>Sustainably Sourced</h3>
+        <p>We partner exclusively with small European and ethical global farms committed to eco-conscious harvesting practices.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎨</span>
+        <h3>Artisan Composition</h3>
+        <p>Each arrangement is composed by hand, balancing colour, texture, and form into a piece you'll want to keep forever.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌱</span>
+        <h3>Zero Water Needed</h3>
+        <p>No vases, no maintenance, no dying petals — just enduring beauty with absolutely no ongoing care required.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🏡</span>
+        <h3>Any Space, Any Style</h3>
+        <p>From boho living rooms to minimalist offices and romantic weddings — our range suits every aesthetic and occasion.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📦</span>
+        <h3>Protected Packaging</h3>
+        <p>Delivered in our signature kraft-and-linen packaging, designed to protect every petal from farm to your doorstep.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">💌</span>
+        <h3>Perfect as a Gift</h3>
+        <p>Include a handwritten card with every order. A gift that keeps giving — long after the occasion has passed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Collections ── -->
+<section id="collections" class="collections">
+  <div class="container">
+    <h2>Explore Our Collections</h2>
+    <p>Curated for every moment, every mood, every home.</p>
+    <div class="collections-grid">
+      <div class="collection-item">
+        <span class="ci-icon">💐</span>
+        <h4>Bridal & Wedding</h4>
+        <p>Forever-beautiful bouquets for your forever moment</p>
+        <span class="ci-tag">Most Loved</span>
+      </div>
+      <div class="collection-item">
+        <span class="ci-icon">🏡</span>
+        <h4>Home & Living</h4>
+        <p>Centrepieces, wall art, and shelf styling</p>
+        <span class="ci-tag">Shop Now</span>
+      </div>
+      <div class="collection-item">
+        <span class="ci-icon">🎁</span>
+        <h4>Gifting Sets</h4>
+        <p>Beautifully curated gift boxes for any occasion</p>
+        <span class="ci-tag">New Season</span>
+      </div>
+      <div class="collection-item">
+        <span class="ci-icon">🌾</span>
+        <h4>Seasonal Wreaths</h4>
+        <p>Autumnal, festive, and botanical door wreaths</p>
+        <span class="ci-tag">Limited</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Process ── -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="features-header">
+      <span class="eyebrow">How It Works</span>
+      <h2>From petal to doorstep</h2>
+      <p>A careful, loving process that ensures every bloom arrives perfectly preserved.</p>
+    </div>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Harvest at Peak</h4>
+        <p>Flowers are hand-cut at precisely the right moment when colour and form are at their finest.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>Slow Dry</h4>
+        <p>Natural air-drying over 2–4 weeks locks in colour, shape, and texture without chemicals.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Artisan Arrangement</h4>
+        <p>Our florists compose each piece by hand, tailored to your chosen style and palette.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>Delivered with Care</h4>
+        <p>Wrapped in our signature packaging and couriered to your door within 3–5 days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing ── -->
+<section class="section" id="pricing" style="background: var(--surface);">
+  <div class="container">
+    <div class="pricing-header">
+      <span style="font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:12px;">Pricing</span>
+      <h2>Simple, honest pricing</h2>
+      <p style="color:var(--fg-muted);margin-top:10px;max-width:420px;margin-left:auto;margin-right:auto;">
+        Every arrangement is priced on quality, not guesswork. Choose the collection that fits your story.
+      </p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Starter -->
+      <div class="pricing-card">
+        <span class="plan-icon">🌸</span>
+        <h3>Blossom</h3>
+        <p>Perfect for gifting or a first dried arrangement — intimate and beautiful.</p>
+        <div class="price-wrap">
+          <span class="price">£38</span><br>
+          <span class="price-period">per arrangement</span>
+        </div>
+        <ul>
+          <li>Small hand-tied bouquet</li>
+          <li>3–5 seasonal varieties</li>
+          <li>Kraft & linen wrapping</li>
+          <li>Handwritten message card</li>
+          <li>Free standard delivery</li>
+        </ul>
+        <a href="#shop" class="btn-ghost" style="width:100%;justify-content:center;">Choose Blossom</a>
+      </div>
+      <!-- Featured -->
+      <div class="pricing-card featured">
+        <span class="featured-badge">Most Popular</span>
+        <span class="plan-icon">💐</span>
+        <h3>Bloom</h3>
+        <p>Our signature piece — lush, layered, and made to be a focal point.</p>
+        <div class="price-wrap">
+          <span class="price">£78</span><br>
+          <span class="price-period">per arrangement</span>
+        </div>
+        <ul>
+          <li>Large statement bouquet</li>
+          <li>8–12 curated varieties</li>
+          <li>Premium ribbon & box</li>
+          <li>Personalised message</li>
+          <li>Priority shipping included</li>
+          <li>Care & styling guide</li>
+        </ul>
+        <a href="#shop" class="btn" style="width:100%;justify-content:center;">Choose Bloom</a>
+      </div>
+      <!-- Premium -->
+      <div class="pricing-card">
+        <span class="plan-icon">🌿</span>
+        <h3>Forever</h3>
+        <p>For weddings, special occasions, or those who want something truly bespoke.</p>
+        <div class="price-wrap">
+          <span class="price">£160+</span><br>
+          <span class="price-period">custom quote</span>
+        </div>
+        <ul>
+          <li>Fully bespoke design</li>
+          <li>Custom colour palette</li>
+          <li>Bridal & event packages</li>
+          <li>Dedicated florist consult</li>
+          <li>White-glove delivery</li>
+          <li>Matching table arrangements</li>
+        </ul>
+        <a href="#shop" class="btn-ghost" style="width:100%;justify-content:center;">Request a Quote</a>
+      </div>
+    </div>
+    <p class="pricing-note">All arrangements include a 30-day quality guarantee. Wedding bookings require a deposit. <a href="#" style="color:var(--accent);">See full terms →</a></p>
+  </div>
+</section>
+
+<!-- ── Testimonials ── -->
+<section class="section testimonials-bg" id="reviews">
+  <div class="container">
+    <div class="features-header">
+      <span class="eyebrow">From Our Customers</span>
+      <h2>Loved by people who love beautiful things</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"I bought the Bloom arrangement six months ago and it still looks like it arrived yesterday. I get compliments every single week."</blockquote>
+        <div class="reviewer">
+          <div class="reviewer-avatar">🌸</div>
+          <div>
+            <div class="reviewer-name">Clara M.</div>
+            <div class="reviewer-meta">Interior Stylist, Amsterdam</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"We used Stillbloom for our entire wedding — the bridal bouquet, table arrangements, even the entrance arch. Everything was perfect."</blockquote>
+        <div class="reviewer">
+          <div class="reviewer-avatar">💐</div>
+          <div>
+            <div class="reviewer-name">Sophie & Luca</div>
+            <div class="reviewer-meta">Married in Tuscany</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Gifted this to my mum for her birthday — she cried. The packaging alone felt so luxurious, and the flowers are genuinely beautiful."</blockquote>
+        <div class="reviewer">
+          <div class="reviewer-avatar">🌿</div>
+          <div>
+            <div class="reviewer-name">James T.</div>
+            <div class="reviewer-meta">Customer, London</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Banner ── -->
+<div class="cta-banner" id="shop">
+  <div class="container">
+    <h2>Ready to bring stillness into your space?</h2>
+    <p>Explore the full collection — new arrangements added every season.</p>
+    <a href="#" class="btn">Browse All Arrangements ↗</a>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-family:Georgia,serif;font-size:1.5rem;color:#fff;margin-bottom:16px;display:block;">Still<span style="color:var(--accent);">bloom</span></div>
+        <p>Dried floral arrangements for homes, weddings, and gift-giving — crafted with care, designed to last.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="#">Blossom Collection</a></li>
+          <li><a href="#">Bloom Collection</a></li>
+          <li><a href="#">Bridal & Wedding</a></li>
+          <li><a href="#">Gift Sets</a></li>
+          <li><a href="#">Seasonal Wreaths</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Press & Media</a></li>
+          <li><a href="#">Wholesale</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Help</h5>
+        <ul>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Care Instructions</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Stillbloom. All rights reserved. Crafted with love for lasting beauty.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="Pinterest">📌</a>
+        <a href="#" aria-label="TikTok">🎵</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav scroll effect
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Subtle hover lift on feature & story cards (already CSS, JS adds ripple-like effect)
+  document.querySelectorAll('.feature-card, .collection-item, .step').forEach(el => {
+    el.addEventListener('mouseenter', function() {
+      this.style.transition = 'transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease';
+    });
+  });
+
+  // Animate step numbers on hover
+  document.querySelectorAll('.step').forEach(step => {
+    const num = step.querySelector('.step-num');
+    step.addEventListener('mouseenter', () => {
+      num.style.color = 'var(--accent)';
+      num.style.fontWeight = '700';
+    });
+    step.addEventListener('mouseleave', () => {
+      num.style.color = '';
+      num.style.fontWeight = '';
+    });
+  });
+</script>
+</body>
+</html>
