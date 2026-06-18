@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
 import { fetchProducts, formatPrice, checkout, type Product, type CartItem } from '@/lib/checkout';
+import { track } from '@/lib/funnel';
 
 // ── Botanical SVG placeholder ──────────────────────────────────────────────────
 function ProductSvg() {
@@ -244,6 +245,7 @@ export default function ShopPage() {
   const [checkingOut, setCheckingOut] = useState(false);
 
   useEffect(() => {
+    track('product_view');
     fetchProducts().then((p) => {
       setProducts(p);
       setLoading(false);
@@ -253,6 +255,7 @@ export default function ShopPage() {
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const addToCart = (product: Product) => {
+    track('add_to_cart');
     setCart((prev) => {
       const existing = prev.find((i) => i.product_id === product.product_id);
       if (existing) {

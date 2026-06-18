@@ -13,10 +13,21 @@ const config: Config = {
         'accent-soft': '#e8d5c4',
         'accent-dark': '#8b4f2e',
         border: '#ddd0c0',
+        /* Stillbloom brand palette — SOURCE OF TRUTH */
+        linen: '#E8DDD0',
+        bark: '#3D2E26',
+        ochre: '#C4A882',
+        chamomile: '#D4B8A0',
+        umber: '#7A6352',
       },
       fontFamily: {
         serif: ['Georgia', 'Times New Roman', 'serif'],
         sans: ['system-ui', '-apple-system', 'sans-serif'],
+        display: ['var(--font-playfair)', 'Georgia', 'serif'],
+        body: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
+      },
+      letterSpacing: {
+        micro: '0.15em',
       },
       borderRadius: {
         brand: '14px',
