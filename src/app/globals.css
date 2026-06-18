@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background: #faf7f2;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #faf7f2;
+  color: #2c2118;
+  -webkit-font-smoothing: antialiased;
+}
+
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  color: #2c2118;
+  margin-top: 1.8rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+
+.post-body h1 { font-size: 2rem; }
+.post-body h2 { font-size: 1.5rem; }
+.post-body h3 { font-size: 1.2rem; }
+
+.post-body p {
+  color: #7a6a58;
+  margin-bottom: 1.2rem;
+  line-height: 1.75;
+}
+
+.post-body a { color: #b5704a; text-decoration: underline; }
+.post-body ul, .post-body ol { padding-left: 1.5rem; margin-bottom: 1rem; color: #7a6a58; }
+.post-body li { margin-bottom: 0.4rem; line-height: 1.7; }
+.post-body blockquote {
+  border-left: 3px solid #b5704a;
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #7a6a58;
+  font-family: Georgia, serif;
+}
+.post-body strong { color: #2c2118; font-weight: 600; }
+.post-body hr { border-color: #ddd0c0; margin: 2rem 0; }
